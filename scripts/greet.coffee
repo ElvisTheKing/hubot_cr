@@ -74,4 +74,8 @@ module.exports = (robot) ->
     robot.send(user,text)
     return
 
+  robot.adapter.client.on "raw_message", (msg) ->
+    console.log(msg)
+    return
+
 
