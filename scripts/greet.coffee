@@ -66,8 +66,12 @@ module.exports = (robot) ->
     user.room = user.name
 
     if robot.brain.data.greetings[room] != undefined
-      callback = -> robot.send(user, robot.brain.data.greetings[room])
+      callback = -> robot.emit('greeting', user, robot.brain.data.greetings[room])
       setTimeout(callback,5000)
+    return
+
+  robot.on "greeting", (user, text) ->
+    robot.send(user,text)
     return
 
 
