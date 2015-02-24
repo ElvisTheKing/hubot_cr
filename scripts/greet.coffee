@@ -66,13 +66,10 @@ module.exports = (robot) ->
     user.room = user.name
 
     if robot.brain.data.greetings[room] != undefined
-      callback = -> robot.emit('greeting', user, robot.brain.data.greetings[room])
-      setTimeout(callback,5000)
+      robot.adapter.client.openDM(user.id)
+      robot.send( user, robot.brain.data.greetings[room])
     return
 
-  robot.on "greeting", (user, text) ->
-    robot.send(user,text)
-    return
 
   robot.adapter.client.on "raw_message", (msg) ->
     console.log(msg)
