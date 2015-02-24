@@ -46,7 +46,7 @@ module.exports = (robot) ->
       return
 
     reply = "\n"
-    if robot.brain.data.greetings.length > 0
+    if Object.keys(robot.brain.data.greetings).length > 0
       for own channel, greeting of robot.brain.data.greetings
         reply += "#{channel} : \"#{greeting}\"\n"
     else
