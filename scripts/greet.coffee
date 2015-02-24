@@ -20,7 +20,7 @@ module.exports = (robot) ->
     return room
 
 
-  robot.respond /greet +on +([^ ]+) +with +(.+)/i, (msg) ->
+  robot.respond /greet +on +([^ ]+) +with +([\s\S]+)/i, (msg) ->
     unless check_user(msg.envelope.user)
       return
 
