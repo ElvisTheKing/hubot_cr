@@ -66,8 +66,19 @@ module.exports = (robot) ->
     user.room = user.name
 
     if robot.brain.data.greetings[room] != undefined
-      robot.adapter.client.openDM(user.id)
-      robot.send( user, robot.brain.data.greetings[room])
+      greet = ()->robot.send(user, robot.brain.data.greetings[room])
+
+
+      if robot.adapter.client.getChannelGroupOrDMByName(user.room)!=undefined
+        greet()
+      else
+        callback = (msg) ->
+          if msg.type == 'im_created' && msg.user == user.id
+            setTimeout greet, 1000
+            robot.adapter.client.removeListener 'raw_message',callback
+
+        robot.adapter.client.on 'raw_message', callback
+        robot.adapter.client.openDM(user.id)
     return
 
 
