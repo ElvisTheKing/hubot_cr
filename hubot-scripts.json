@@ -1,1 +1,5 @@
-["greet"]
+[
+    "greet",
+    "rules",
+    "privates"
+]

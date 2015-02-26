@@ -80,10 +80,3 @@ module.exports = (robot) ->
         robot.adapter.client.on 'raw_message', callback
         robot.adapter.client.openDM(user.id)
     return
-
-
-  robot.adapter.client.on "raw_message", (msg) ->
-    console.log(msg)
-    return
-
-
