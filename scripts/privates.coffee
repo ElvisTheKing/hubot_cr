@@ -1,7 +1,7 @@
 # Commands:
-#   hubot add private <channel> [owned by <user>] [with descriptin <discription>]- add private
-#   hubot remove private <channel> - remove private
-#   hubot private groups - list private groups
+#   hubot add group <name> [owned by <user>] [with descriptin <discription>]- add private
+#   hubot remove group <name> - remove private
+#   hubot groups - list private groups
 
 module.exports = (robot) ->
   robot.brain.data.privates = {} if not robot.brain.data.privates
@@ -27,7 +27,7 @@ module.exports = (robot) ->
     return room
 
 
-  robot.respond /add private ([^ ]+)([\s\S]*)$/i, (msg) ->
+  robot.respond /add group ([^ ]+)([\s\S]*)$/i, (msg) ->
     room = clear_room_name(msg.match[1])
     username = null
     description = null
@@ -52,7 +52,7 @@ module.exports = (robot) ->
 
     msg.reply("okee dokee")
 
-  robot.respond /remove private ([^ ]+)/i, (msg) ->
+  robot.respond /remove group ([^ ]+)/i, (msg) ->
     room = clear_room_name(msg.match[1])
     if !robot.brain.data.privates[room]
       msg.reply('you can`t destroy something that not exist')
@@ -66,18 +66,18 @@ module.exports = (robot) ->
     msg.reply('done')
     return
 
-  robot.respond /private groups/i,(msg) ->
+  robot.respond /groups/i,(msg) ->
     reply = "\n"
     if Object.keys(robot.brain.data.privates).length > 0
       for own room, data of robot.brain.data.privates
-        reply += "#{room} : @#{data.owner}\n"
+        reply += "`#{room}` : @#{data.owner}\n"
         if data.description
           reply+="#{data.description}\n"
 
         reply+="\n"
 
     else
-      reply = "I don`t know no private rooms!"
+      reply = "I don`t know no private groups!"
 
     msg.reply(reply)
     return
