@@ -22,12 +22,12 @@ module.exports = (robot) ->
     unless check_user(msg.envelope.user, msg)
       return
 
-    robot.brain.data.pages[msg.match[1]]=msg.match[2]
+    robot.brain.data.pages[msg.match[1].toLowerCase()]=msg.match[2]
     msg.reply('roger that')
     return
 
   robot.respond /([a-z]+)/i, (msg) ->
-    name = msg.match[1]
+    name = msg.match[1].toLowerCase()
     if robot.brain.data.pages[name] != undefined
       msg.send(robot.brain.data.pages[name])
     return
